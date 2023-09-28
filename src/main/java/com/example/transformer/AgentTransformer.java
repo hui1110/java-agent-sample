@@ -9,21 +9,26 @@ import java.security.ProtectionDomain;
 
 public class AgentTransformer implements ClassFileTransformer {
 
+    private static final String TARGET_CLASS_NAME = "com.example.controller.HelloController";
+    private static final String TARGET_METHOD_NAME = "origin";
+    private static final String TARGET_CLASS_NAME2 = "com.azure.spring.controller.Index";
+    private static final String TARGET_METHOD_NAME2 = "index";
+
     @Override
     public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) {
         try {
             className = className.replace("/", ".");
 //            System.out.println("Load Class: " + className);
-            if ("com.example.controller.HelloController".equals(className)) {
+            if (TARGET_CLASS_NAME.equals(className)) {
                 System.out.println("Find target class: " + className);
                 CtClass ctclass = ClassPool.getDefault().get(className);
-                updateMethodContent(ctclass, "origin");
+                updateMethodContent(ctclass, TARGET_METHOD_NAME);
                 agentMethod(ctclass);
                 return ctclass.toBytecode();
-            } else if("com.azure.spring.controller.Index".equals(className)){
+            } else if(TARGET_CLASS_NAME2.equals(className)){
                 System.out.println("Find target class: " + className);
                 CtClass ctclass = ClassPool.getDefault().get(className);
-                updateMethodContent(ctclass, "index");
+                updateMethodContent(ctclass, TARGET_METHOD_NAME2);
                 agentMethod(ctclass);
                 return ctclass.toBytecode();
             }

@@ -10,6 +10,8 @@ import java.util.List;
 
 @RestController
 public class AttachController {
+    private static final String AGENT_PATH = "C:\\item\\java-agent-sample\\target\\java-agent-sample-0.0.1-SNAPSHOT.jar";
+    private static final String AGENT_ARGS = "com.example.AgentDemoApplication";
 
     @RequestMapping(value = "/attach", method = RequestMethod.GET)
     public String updateClassMethod(){
@@ -17,9 +19,9 @@ public class AttachController {
 
             List<VirtualMachineDescriptor> list = VirtualMachine.list();
             for (VirtualMachineDescriptor vmd : list) {
-                if (vmd.displayName().equals("com.example.AgentDemoApplication")) {
+                if (vmd.displayName().equals(AGENT_ARGS)) {
                     VirtualMachine virtualMachine = VirtualMachine.attach(vmd.id());
-                    virtualMachine.loadAgent("C:\\item\\java-agent-sample\\target\\java-agent-sample-0.0.1-SNAPSHOT.jar");
+                    virtualMachine.loadAgent(AGENT_PATH);
                     virtualMachine.detach();
                 }
             }
