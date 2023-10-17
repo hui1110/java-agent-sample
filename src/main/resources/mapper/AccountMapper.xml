@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.AccountMapper">
+    <resultMap id="account" type="com.example.pojo.Account">
+        <id column="account_id" property="accountId" javaType="String"></id>
+        <result column="account_name" property="accountName" javaType="String"></result>
+        <result column="balance" property="balance" javaType="BigDecimal"></result>
+    </resultMap>
+
+    <select id="queryAllAccounts" resultMap="account">
+        select *
+        from account
+    </select>
+
+    <select id="queryAccountId" resultType="Account" parameterType="string" resultMap="account">
+        select * from account
+
+        <where>
+            account_id = #{accountId}
+        </where>
+    </select>
+
+    <update id="updateAccount" parameterType="com.example.pojo.Account">
+        update account
+        <trim prefix="set" suffixOverrides=",">
+            <if test="accountName!=null and accountName!=''">account_name = #{accountName},</if>
+            <if test="balance!=null and balance!=''">balance = #{balance},</if>
+        </trim>
+        <where>account_id = #{accountId}</where>
+
+    </update>
+
+    <insert id="addAccount" parameterType="com.example.pojo.Account">
+        insert into account
+        values (#{accountId}, #{accountName}, #{balance});
+    </insert>
+
+</mapper>

@@ -23,13 +23,13 @@ public class AgentTransformer implements ClassFileTransformer {
                 System.out.println("Find target class: " + className);
                 CtClass ctclass = ClassPool.getDefault().get(className);
                 updateMethodContent(ctclass, TARGET_METHOD_NAME);
-                agentMethod(ctclass);
+                instrumentedMethod(ctclass);
                 return ctclass.toBytecode();
             } else if(TARGET_CLASS_NAME2.equals(className)){
                 System.out.println("Find target class: " + className);
                 CtClass ctclass = ClassPool.getDefault().get(className);
                 updateMethodContent(ctclass, TARGET_METHOD_NAME2);
-                agentMethod(ctclass);
+                instrumentedMethod(ctclass);
                 return ctclass.toBytecode();
             }
         } catch (Exception e) {
@@ -50,7 +50,7 @@ public class AgentTransformer implements ClassFileTransformer {
         }
     }
 
-    private static void agentMethod(CtClass ctClass) {
+    private static void instrumentedMethod(CtClass ctClass) {
         try {
 //            CtField startTime = new CtField(CtClass.intType, "startTime", ctClass);
 //            ctClass.addField(startTime);

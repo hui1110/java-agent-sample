@@ -1,0 +1,1 @@
+insert into account values ('1','admin','1000.25');
