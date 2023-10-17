@@ -10,9 +10,9 @@ mybatis:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    password: 1472580h@
+    password:
     url: jdbc:mysql://mysqldbdev.mysql.database.azure.com:3306/employee?ssl-mode=require
-    username: rootuser
+    username:
   sql:
     init:
       data-locations: classpath*:data.sql
