@@ -1,8 +1,26 @@
 server:
   port: 8088
 
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: com.example.pojo
+
 spring:
-#  redis:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: 1472580h@
+    url: jdbc:mysql://mysqldbdev.mysql.database.azure.com:3306/employee?ssl-mode=require
+    username: rootuser
+  sql:
+    init:
+      data-locations: classpath*:data.sql
+      mode: always
+      platform: mysql
+      schema-locations: classpath*:schema.sql
+
+  #  redis:
 #    cluster:
 #      expire-seconds: 120
 #      command-timeout: 5000
