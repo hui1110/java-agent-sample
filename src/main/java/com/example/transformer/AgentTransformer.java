@@ -77,4 +77,12 @@ public class AgentTransformer implements ClassFileTransformer {
         }
     }
 
+
+    public static void main(String[] args) {
+        int a = 4992;
+        System.out.println(Integer.toBinaryString(a));
+        a>>=10;
+        System.out.println(a);
+        System.out.println(Integer.toBinaryString(a));
+    }
 }
