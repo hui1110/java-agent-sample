@@ -1,6 +1,7 @@
 package com.example.mapper;
 
 import com.example.pojo.Account;
+import com.example.pojo.AccountTransaction;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -9,8 +10,6 @@ import java.util.List;
 public interface AccountMapper {
     Account getAccount();
 
-    void addMoney();
-
     List<Account> queryAllAccounts();
 
     int addAccount(Account account);
@@ -18,5 +17,7 @@ public interface AccountMapper {
     int updateAccount(Account account);
 
     Account queryAccountId(String accountId);
+
+    List<AccountTransaction> queryAccountTransaction(String accountId);
 
 }

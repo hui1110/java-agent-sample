@@ -4,19 +4,25 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mapper.AccountMapper">
     <resultMap id="account" type="com.example.pojo.Account">
-        <id column="account_id" property="accountId" javaType="String"></id>
-        <result column="account_name" property="accountName" javaType="String"></result>
-        <result column="balance" property="balance" javaType="BigDecimal"></result>
+        <id column="account_id" property="accountId" javaType="String"/>
+        <result column="account_name" property="accountName" javaType="String"/>
+        <result column="balance" property="balance" javaType="BigDecimal"/>
+    </resultMap>
+
+    <resultMap id="transactionMap" type="com.example.pojo.AccountTransaction">
+        <id column="transaction_id" property="transactionId" javaType="String"/>
+        <result column="account_id" property="accountId" javaType="String"/>
+        <result column="account_name" property="accountName" javaType="String"/>
+        <result column="balance" property="balance" javaType="BigDecimal"/>
+        <result column="amount" property="amount" javaType="BigDecimal"/>
     </resultMap>
 
     <select id="queryAllAccounts" resultMap="account">
-        select *
-        from account
+        select * from account
     </select>
 
     <select id="queryAccountId" resultType="Account" parameterType="string" resultMap="account">
         select * from account
-
         <where>
             account_id = #{accountId}
         </where>
@@ -33,8 +39,14 @@
     </update>
 
     <insert id="addAccount" parameterType="com.example.pojo.Account">
-        insert into account
-        values (#{accountId}, #{accountName}, #{balance});
+        insert into account values (#{accountId}, #{accountName}, #{balance});
     </insert>
+
+    <select id="queryAccountTransaction" resultType="com.example.pojo.AccountTransaction" parameterType="string" resultMap="transactionMap">
+        select * from account inner join account_transaction on account.account_id = account_transaction.account_id
+        <where>
+            <if test="accountId!=null and accountId!=''">account.account_id = #{accountId}</if>
+        </where>
+    </select>
 
 </mapper>

@@ -1,9 +1,11 @@
 package com.example.controller;
 
 import com.example.pojo.Account;
+import com.example.pojo.AccountTransaction;
 import com.example.service.AccountService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
@@ -50,6 +52,11 @@ public class AccountController {
         account.setAccountName("huihui");
         account.setBalance(BigDecimal.valueOf(100.55));
         return accountService.updateAccount(account);
+    }
+
+    @RequestMapping("/queryAccountTransaction")
+    public List<AccountTransaction> queryAccountTransaction(@RequestParam(required = false) String accountId){
+        return accountService.queryAccountTransaction(accountId);
     }
 
 }

@@ -2,6 +2,7 @@ package com.example.service;
 
 import com.example.mapper.AccountMapper;
 import com.example.pojo.Account;
+import com.example.pojo.AccountTransaction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,6 +41,10 @@ public class AccountService {
 
     public int updateAccount(Account account){
         return accountMapper.updateAccount(account);
+    }
+
+    public List<AccountTransaction> queryAccountTransaction(String accountId){
+        return accountMapper.queryAccountTransaction(accountId);
     }
 
 }
